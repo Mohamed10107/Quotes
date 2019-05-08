@@ -12,9 +12,9 @@ class Repository constructor(protected val fireStoreManager: FireStoreManager)
         return fireStoreManager.getQuotes().subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
     }
 
-    fun addQuotes(quote: String, author: String): Observable<String>
+    fun addQuotes(quote: String): Observable<String>
     {
-        return fireStoreManager.addQuotes(quote, author).subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
+        return fireStoreManager.addQuotes(quote).subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
     }
 
     fun listenToNewQuotes(): Observable<MutableList<Quote>>

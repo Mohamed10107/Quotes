@@ -5,9 +5,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import butterknife.BindView
 import butterknife.ButterKnife
 import com.coderbot.quotes.R
 import com.coderbot.quotes.model.Quote
+import com.coderbot.quotes.utils.DateFormatter
 
 class QuotesAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 {
@@ -40,25 +43,21 @@ class QuotesAdapter(private val context: Context) : RecyclerView.Adapter<Recycle
         val viewHolder = holder as ViewHolder
         val model = getItem(position)
 
-        //        viewHolder.title.setText(R.string.experience)
-        //        viewHolder.hint.setText(R.string.experience)
+        viewHolder.quote.text = model.quote
+        viewHolder.date.text = DateFormatter.format(model.date)
     }
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
-        //        @BindView(R.id.quote)
-        //        lateinit var quote: TextView
-        //
-        //        @BindView(R.id.auther)
-        //        lateinit var auther: TextView
-        //
-        //        @BindView(R.id.date)
-        //        lateinit var date: TextView
+        @BindView(R.id.quote)
+        lateinit var quote: TextView
+
+        @BindView(R.id.date)
+        lateinit var date: TextView
 
         init
         {
             ButterKnife.bind(this, itemView)
         }
     }
-
 }

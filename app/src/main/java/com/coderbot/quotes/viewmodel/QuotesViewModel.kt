@@ -61,9 +61,9 @@ class QuotesViewModel constructor(protected val repository: Repository) : ViewMo
         })
     }
 
-    fun addQuotes(quote: String, author: String)
+    fun addQuotes(quote: String)
     {
-        repository.addQuotes(quote, author).subscribe(object : Observer<String>
+        repository.addQuotes(quote).subscribe(object : Observer<String>
         {
             override fun onSubscribe(d: Disposable)
             {

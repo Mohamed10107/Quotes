@@ -22,7 +22,7 @@ class FireStoreManager
                         for (document in task.result!!)
                         {
                             val data = document.data
-                            quotes.add(Quote(data["quote"].toString(), data["author"].toString(), data["date"].toString().toLong()))
+                            quotes.add(Quote(data["quote"].toString(), data["date"].toString().toLong()))
                         }
                         it.onNext(quotes)
                     }
@@ -47,7 +47,7 @@ class FireStoreManager
         }
     }
 
-    fun addQuotes(quote: String, author: String): Observable<String>
+    fun addQuotes(quote: String): Observable<String>
     {
         return Observable.create { emitter ->
             try
@@ -56,7 +56,6 @@ class FireStoreManager
 
                 val data = hashMapOf<String, Any>()
                 data.put("quote", quote)
-                data.put("author", author)
                 data.put("date", date)
 
                 db.collection("quotes").document(date.toString()).set(data).addOnSuccessListener {
@@ -94,7 +93,7 @@ class FireStoreManager
                             val data = document.data
                             if (data != null)
                             {
-                                quotes.add(Quote(data["quote"].toString(), data["author"].toString(), data["date"].toString().toLong()))
+                                quotes.add(Quote(data["quote"].toString(), data["date"].toString().toLong()))
                             }
                         }
                         it.onNext(quotes)

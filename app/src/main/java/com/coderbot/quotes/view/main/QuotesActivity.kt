@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.Toast
+import butterknife.BindView
 import butterknife.ButterKnife
 import com.coderbot.quotes.R
 import com.coderbot.quotes.utils.Views
@@ -14,6 +15,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class QuotesActivity : AppCompatActivity()
 {
+    @BindView(R.id.quotes)
     protected lateinit var quotesList: RecyclerView
 
     private val viewModel: QuotesViewModel by viewModel()
@@ -31,6 +33,8 @@ class QuotesActivity : AppCompatActivity()
         initList()
 
         initListeners()
+
+        getQuotes()
     }
 
     private fun initList()
@@ -38,7 +42,7 @@ class QuotesActivity : AppCompatActivity()
         quotesList.setHasFixedSize(true)
         quotesList.isFocusable = false
         quotesList.isNestedScrollingEnabled = false
-        quotesList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        quotesList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         adapter = QuotesAdapter(this)
         quotesList.adapter = adapter
         adapter.setData(mutableListOf())
@@ -65,5 +69,11 @@ class QuotesActivity : AppCompatActivity()
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun getQuotes()
+    {
+        loading.show()
+        viewModel.getQuotes()
     }
 }
